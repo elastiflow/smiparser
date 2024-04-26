@@ -43,6 +43,11 @@ var replacementModule = map[string]string{
 	"RFC1316-MIB": "CHARACTER-MIB",
 }
 
+var rootNode = Node{ //---create a mib object which will be linked by root symbol
+	Label: "iso",
+	IDs:   []SubID{{ID: 1}},
+}
+
 // NewMIB creates a MIB object for the modules contained in the dirs directories.
 // Creating a MIB does not load any modules from the directories. You need to call
 // LoadModules() on the resulting MIB object.
@@ -60,6 +65,7 @@ func NewMIB(dirs ...string) *MIB {
 		Parent:       nil,
 		ChildByLabel: make(map[string]*Symbol),
 		ChildByID:    make(map[int]*Symbol),
+		NodeIndex:    -1, //---link to a mib object rootNode
 	}
 	mib.Root = &root
 	mib.Symbols[root.Name] = &root
@@ -118,7 +124,8 @@ func (mib *MIB) indexModules() error {
 		}
 
 		var unresolved []parentRef
-		for _, n := range mod.Nodes {
+
+		for n_index, n := range mod.Nodes {
 			if len(n.IDs) < 2 {
 				return fmt.Errorf("%s: unknown IDs format: %v", modName, n.IDs)
 			}
@@ -147,6 +154,7 @@ func (mib *MIB) indexModules() error {
 					Name:         label,
 					ID:           id,
 					Module:       mod,
+					NodeIndex:    n_index, //---link to a mib object, mod.Nodes[]
 					Parent:       parent,
 					ChildByLabel: make(map[string]*Symbol),
 					ChildByID:    make(map[int]*Symbol),
@@ -442,4 +450,15 @@ func visitChildSymbols(sym *Symbol, oid OID, action func(sym *Symbol, oid OID)) 
 		action(childSym, childOID)
 		visitChildSymbols(childSym, childOID, action)
 	}
+}
+
+// Get MIB object by a Symboil
+func SymbolNode(sym *Symbol) (*Node, error) {
+	index := sym.NodeIndex
+	if index >= 0 && index < len(sym.Module.Nodes) {
+		return &sym.Module.Nodes[index], nil
+	} else if index == -1 {
+		return &rootNode, nil
+	}
+	return nil, fmt.Errorf("name %s out of index", sym)
 }

@@ -44,7 +44,6 @@ func TestLexer_Ident(t *testing.T) {
 	if lval.id != "DEFINITIONS" {
 		t.Errorf("expected DEFINITIONS, not '%s'", lval.id)
 	}
-
 }
 
 func TestLexer_QuotedString(t *testing.T) {
@@ -237,5 +236,4 @@ func TestLexer_HexBin(t *testing.T) {
 			t.Errorf("TC %d: expected %s, got %s", i, tc.outText, value.text)
 		}
 	}
-
 }

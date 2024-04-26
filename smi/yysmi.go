@@ -1397,6 +1397,11 @@ smidefault:
 //line smi.y:635
 		{
 			smiVAL.node = Node{Label: smiDollar[1].id, Type: NodeObjectID, IDs: smiDollar[6].subidList}
+/*
+			for i := 1; i <= 6; i++ {      //---show all parsing information
+				__yyfmt__.Printf( "[%d]: %v\n", i, smiDollar[i]);
+			}
+*/
 		}
 	case 86:
 		smiDollar = smiS[smipt-1 : smipt+1]
@@ -1532,13 +1537,23 @@ smidefault:
 		smiDollar = smiS[smipt-11 : smipt+1]
 //line smi.y:788
 		{
-			smiVAL.node = Node{Label: smiDollar[1].id, Type: NodeObjectID, IDs: smiDollar[10].subidList}
+			smiVAL.node = Node{Label: smiDollar[1].id, Type: NodeNotification, Status: smiDollar[4].id, Description: smiDollar[6].text, IDs: smiDollar[10].subidList}    //---support more properties of mib object
+/*
+			for i := 1; i <= 10; i++ {      //---show all parsing information
+				__yyfmt__.Printf( "[%d]: %v\n", i, smiDollar[i]);
+			}
+*/
 		}
 	case 124:
 		smiDollar = smiS[smipt-21 : smipt+1]
 //line smi.y:809
 		{
-			smiVAL.node = Node{Label: smiDollar[1].id, Type: NodeObjectType, IDs: smiDollar[20].subidList}
+			smiVAL.node = Node{Label: smiDollar[1].id, Type: NodeNotification, Syntax: smiDollar[4].id, Access: smiDollar[8].id, Status: smiDollar[10].id, Description: smiDollar[12].text, IDs: smiDollar[20].subidList}    //---support more properties of mib object
+/*
+			for i := 1; i <= 20; i++ {      //---show all parsing information
+				__yyfmt__.Printf( "[%d]: %v\n", i, smiDollar[i]);
+			}
+*/
 		}
 	case 125:
 		smiDollar = smiS[smipt-0 : smipt+1]
@@ -1754,13 +1769,23 @@ smidefault:
 		smiDollar = smiS[smipt-12 : smipt+1]
 //line smi.y:975
 		{
-			smiVAL.node = Node{Label: smiDollar[1].id, Type: NodeNotification, IDs: smiDollar[11].subidList}
+			smiVAL.node = Node{Label: smiDollar[1].id, Type: NodeNotification, Status: smiDollar[5].id, Description: smiDollar[9].text, IDs: smiDollar[11].subidList}    //---support more properties of mib object
+/*
+			for i := 1; i <= 11; i++ {      //---show all parsing information
+				__yyfmt__.Printf( "[%d]: %v\n", i, smiDollar[i]);
+			}
+*/
 		}
 	case 168:
 		smiDollar = smiS[smipt-16 : smipt+1]
 //line smi.y:990
 		{
-			smiVAL.node = Node{Label: smiDollar[1].id, Type: NodeModuleID, IDs: smiDollar[15].subidList}
+			smiVAL.node = Node{Label: smiDollar[1].id, Type: NodeNotification, Description: smiDollar[11].text, IDs: smiDollar[15].subidList}    //---support more properties of mib object
+/*
+			for i := 1; i <= 15; i++ {      //---show all parsing information
+				__yyfmt__.Printf( "[%d]: %v\n", i, smiDollar[i]);
+			}
+*/
 		}
 	case 169:
 		smiDollar = smiS[smipt-4 : smipt+1]

@@ -43,15 +43,17 @@ func ParseModule(filename string) (*Module, error) {
 }
 
 // NotAModuleError is returned when a parsed file is not a valid module file.
-type NotAModuleError string
+type NotAModuleError struct {
+	filename string
+}
 
 func (f NotAModuleError) Error() string {
-	return fmt.Sprintf("not a module file: %s", f)
+	return fmt.Sprintf("not a module file: %s", f.filename) //---? fix an error when running go test
 }
 
 // Filename returns the name of the file that is not a valid module.
 func (f NotAModuleError) Filename() string {
-	return string(f)
+	return string(f.filename)
 }
 
 // ModuleName returns the module name for the given file. If the file
@@ -73,5 +75,5 @@ func ModuleName(filename string) (string, error) {
 			return moduleName, nil
 		}
 	}
-	return "", NotAModuleError(filename)
+	return "", NotAModuleError{filename: filename}
 }

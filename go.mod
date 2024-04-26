@@ -1,3 +1,3 @@
-module github.com/hallidave/mibtool
+module github.com/elastiflow/smiparser
 
 go 1.12
